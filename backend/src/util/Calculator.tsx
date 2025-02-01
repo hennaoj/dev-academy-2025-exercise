@@ -73,7 +73,6 @@ export function calculateDailyInfromation(data: Electricitydata[]) {
     };
 
     list.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    console.log(list);
     return list;
 }
 

@@ -23,5 +23,5 @@
   },
   "include": [
     "src"
-  ]
+, "testSetup.ts", "vite.config.ts"  ]
 }

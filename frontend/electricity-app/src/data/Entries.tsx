@@ -1,6 +1,6 @@
 import { ElectricityEntry } from "./ElectricityEntry";
 
-var globalEntries: Array<ElectricityEntry> = []
+let globalEntries: Array<ElectricityEntry> = []
 
 export function setGlobalEntries(data: Array<ElectricityEntry>) {
     globalEntries = data

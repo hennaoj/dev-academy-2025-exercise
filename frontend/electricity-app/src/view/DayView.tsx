@@ -1,10 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import { ElectricityEntry } from "../data/ElectricityEntry";
 import { useEffect, useState } from "react";
-import { Bar, BarChart, CartesianGrid, ComposedChart, Label, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const DayView = () => {
-    var { date = "test" } = useParams<{ date: string }>();
+    const { date = "test" } = useParams<{ date: string }>();
     const [entries, setEntries] = useState<ElectricityEntry[]>([]);
     useEffect(() => {
     fetchData(date).then((data) => 
@@ -21,11 +21,11 @@ const DayView = () => {
 
     entries.sort((a, b) => a.id - b.id)
 
-    var maxAx = 0;
-    var minAx = 0;
-    var average = 0;
+    let maxAx = 0;
+    let minAx = 0;
+    let average = 0;
 
-    for (var entry of entries) {
+    for (const entry of entries) {
         if (entry.hourlyprice) {
             if (Number(entry.hourlyprice) > maxAx) {
                 maxAx = entry.hourlyprice;
@@ -36,22 +36,9 @@ const DayView = () => {
         }
     }
 
-    const data = [
-    { time: "00:00", temp: -5, rain: 0 },
-    { time: "03:00", temp: -2, rain: 0 },
-    { time: "06:00", temp: -1, rain: 0 },
-    { time: "09:00", temp: 0, rain: 0 },
-    { time: "12:00", temp: 2, rain: 3 },
-    { time: "15:00", temp: 4, rain: 10 },
-    { time: "18:00", temp: 5, rain: 3 },
-    { time: "21:00", temp: 3, rain: 0 },
-    { time: "00:00", temp: 0, rain: 0 },
-
-  ]
-
     return(
         <div>
-            <header>Electricity Statistics of {date}</header>
+            <header className="mainheader">Electricity Statistics of {date}</header>
                 <div className="chart">
                 <header className="chartTitle">Price of electricity by hour</header>
                 <ResponsiveContainer width="100%" height={400}>

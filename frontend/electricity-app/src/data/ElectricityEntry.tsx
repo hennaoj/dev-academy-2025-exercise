@@ -5,4 +5,4 @@ export interface ElectricityEntry {
     consumptionamount: number;
     productionamount: number;
     hourlyprice: number;
-};
+}

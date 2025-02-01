@@ -2,7 +2,7 @@ import express from "express"
 import * as bodyParser from "body-parser"
 import { Request, Response } from "express"
 import { AppDataSource } from "./data-source"
-import { Routes } from "./Router/routes"
+import { Routes } from "./router/routes"
 
 AppDataSource.initialize().then(async () => {
 

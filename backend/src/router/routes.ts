@@ -1,4 +1,4 @@
-import { DataController } from "../controller/Controller"
+import { DataController } from "../controller/Controller";
 
 export const Routes = [{
     method: "get",
@@ -10,4 +10,4 @@ export const Routes = [{
     route: "/electricity/dates/:date",
     controller: DataController,
     action: "dayData"
-}]
+}];
