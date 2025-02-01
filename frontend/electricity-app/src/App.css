@@ -1,0 +1,71 @@
+.App {
+  text-align: center;
+}
+
+header {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(0, 0, 0);
+  font-family: arial, sans-serif;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  align-self: center;
+  margin: auto;
+  color: #333333;
+}
+
+td, th {
+  border: 1px solid #343f3e;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-image: linear-gradient(to right, #e1f0fe , #f5faff);
+}
+
+tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.columnHeader {
+  text-align: left;
+  padding: 12px;
+  background-color: #d5e9fe;
+  border: 1.5px solid #3f3734;
+  cursor:pointer;
+}
+
+.chart {
+  padding: 10px;
+  align-content: center;
+}
+
+.navLink {
+  padding: 20px;
+  color: #0000EE;
+}
+
+.chartTitle {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(7px + 2vmin);
+  color: rgb(0, 0, 0);
+  font-family: arial, sans-serif;
+}
+
+/**
+#505a5b
+#8f91a2
+*/
