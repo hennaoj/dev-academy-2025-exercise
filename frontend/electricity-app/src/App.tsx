@@ -3,18 +3,17 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import './App.css';
 import DailyTable from './view/DailyTable';
 import DayView from './view/DayView';
-import { ElectricityEntry } from './data/ElectricityEntry';
-import { setGlobalEntries } from './data/Entries';
+import { getStoredDailyInfo, setStoredDailyInfo, DailyInfo } from './data/DailyInfo';
 
 function App() {
-  const [entries, setEntries] = useState<ElectricityEntry[]>([]);
+  const [entries, setEntries] = useState<DailyInfo[]>(getStoredDailyInfo());
   useEffect(() => {
     fetchData().then((data) => 
       setEntries(data));
   }, []);
 
   if (entries.length > 0) {
-    setGlobalEntries(entries);
+    setStoredDailyInfo(entries);
   }
   
   return (
@@ -29,10 +28,15 @@ function App() {
   );
 }
 
-async function fetchData(): Promise<ElectricityEntry[]> {
-  const response = await fetch('http://localhost:3003/electricity');
-  const data = await response.json();
-  return data;
+async function fetchData(): Promise<DailyInfo[]> {
+  try {
+    const response = await fetch('http://localhost:3003/electricity/dailyinfo');
+    const data = await response.json();
+    return data;
+  } catch (e) {
+    console.log('error while fetching data', e)
+  }
+  return [];
 }
 
 export default App;

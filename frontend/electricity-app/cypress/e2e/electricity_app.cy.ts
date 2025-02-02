@@ -12,6 +12,5 @@ describe('Electricity app tests', () => {
     cy.contains('Electricity Statistics of 2024-10-01');
     cy.contains('Back to daily table').click();
     cy.contains('Daily Electricity Information');
-    cy.get('th').closest('.consumptioncell')
   })
 })

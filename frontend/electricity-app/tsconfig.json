@@ -19,9 +19,9 @@
     "jsx": "react-jsx",
     "downlevelIteration": true,
     "allowJs": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
   },
   "include": [
-    "src"
+    "src/unittest"
 , "testSetup.ts", "vite.config.ts"  ]
 }

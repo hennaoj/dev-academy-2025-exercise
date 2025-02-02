@@ -1,31 +1,32 @@
-import { calculateDailyInfromation } from "../util/Calculator";
 import { Link } from "react-router-dom";
-import { getGlobalEntries } from "../data/Entries";
-import { DailyInfo } from "../data/DailyInfo";
 import { sortDataByValue } from "../util/Sorter";
 import { useEffect, useState } from "react";
+import { DailyInfo, getStoredDailyInfo } from "../data/DailyInfo";
 
 const DailyTable = () => {
-    const storedEntries = getGlobalEntries();
-    storedEntries.sort((a, b) => a.id - b.id)
-
-    let initialList: Array<DailyInfo> = []
-    const [state, setState] = useState(initialList)
+    const storedEntries = getStoredDailyInfo();
+    const [state, setState] = useState(storedEntries)
     if (storedEntries.length > 0 && state.length === 0) {
-      initialList = calculateDailyInfromation(storedEntries);
-      setState(initialList);
+      setState(storedEntries);
     }
 
     const sortTable = (sorter: string) => {
       const sortedList = sortDataByValue([...state], sorter);
-      console.log(sortedList[0]);
       setState(sortedList);
-      console.log(state[0]);
     }
 
     useEffect(() => {
-      document.title = `You clicked ${state} times`;
+      console.log("setting state");
     }, [state]);
+
+    if (state.length === 0) {
+      return (
+        <div className="App">
+          <header className="mainheader">Daily Electricity Information</header>
+          <p>Fetching electricity data...</p>
+        </div>
+      )
+    }
 
     return (
       <div className="App">
@@ -50,7 +51,7 @@ const DailyTable = () => {
             {Object.values(state).map((item: DailyInfo) => (
               <tr>
                 <th>
-                <Link to={`/${item.date.toString().slice(0,16)}`}>{item.date.toString().slice(0,16)}</Link>
+                <Link to={`/${item.date.toString().slice(0,10)}`}>{item.date.toString().slice(0,10)}</Link>
                   </th>
                 <th className="consumptioncell">{item.consumption}</th>
                 <th>{item.production}</th>

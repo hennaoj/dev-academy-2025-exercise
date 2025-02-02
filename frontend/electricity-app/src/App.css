@@ -73,6 +73,10 @@ tr:nth-child(odd) {
   font-family: system-ui;
 }
 
+.filter {
+  padding: 10px;
+}
+
 /**
 #505a5b
 #8f91a2

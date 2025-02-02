@@ -10,4 +10,9 @@ export const Routes = [{
     route: "/electricity/dates/:date",
     controller: DataController,
     action: "dayData"
+}, {
+    method: "get",
+    route: "/electricity/dailyinfo",
+    controller: DataController,
+    action: "dailyInfo"
 }];

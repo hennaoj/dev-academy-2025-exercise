@@ -1,3 +1,4 @@
+import { DailyInfo } from "../data/DailyInfo";
 import { ElectricityEntry } from "../data/ElectricityEntry";
 
 export const dataOfOneDay: Array<ElectricityEntry> = [{
@@ -191,5 +192,193 @@ export const dataOfOneDay: Array<ElectricityEntry> = [{
     "productionamount": 33516.19000,
     "consumptionamount": 4908883.734,
     "hourlyprice": 4.078
+  }
+]
+
+export const dailyDataOfOneMonth: Array<DailyInfo> = [  {
+    "date": new Date("2024-09-30"),
+    "production": 763.13,
+    "average": 2.1
+  },
+  {
+    "date": new Date("2024-09-29"),
+    "consumption": 110.1,
+    "production": 746.64,
+    "average": 1.34,
+    "consecutivenegatives": 3
+  },
+  {
+    "date": new Date("2024-09-28"),
+    "consumption": 108.5,
+    "production": 653.83,
+    "average": 10.23
+  },
+  {
+    "date": new Date("2024-09-27"),
+    "consumption": 118.6,
+    "production": 723.59,
+    "average": 0.79
+  },
+  {
+    "date": new Date("2024-09-26"),
+    "consumption": 116.3,
+    "production": 805.73,
+    "average": 8.24,
+    "consecutivenegatives": 6
+  },
+  {
+    "date": new Date("2024-09-25"),
+    "consumption": 116.7,
+    "production": 803.77,
+    "average": 0.13,
+    "consecutivenegatives": 1
+  },
+  {
+    "date": new Date("2024-09-24"),
+    "consumption": 117.7,
+    "production": 791.9,
+    "average": 2.46
+  },
+  {
+    "date": new Date("2024-09-23"),
+    "consumption": 120.4,
+    "production": 746.31,
+    "average": 2.02
+  },
+  {
+    "date": new Date("2024-09-22"),
+    "consumption": 106.3,
+    "production": 86.48,
+    "average": 14.61
+  },
+  {
+    "date": new Date("2024-09-21"),
+    "consumption": 106,
+    "production": 753.15,
+    "average": 8.54
+  },
+  {
+    "date": new Date("2024-09-20"),
+    "consumption": 110.9,
+    "production": 729.49,
+    "average": 8.2
+  },
+  {
+    "date": new Date("2024-09-19"),
+    "consumption": 114.1,
+    "production": 732.8,
+    "average": 1.65
+  },
+  {
+    "date": new Date("2024-09-18"),
+    "consumption": 115.1,
+    "production": 714.43,
+    "average": 6.35
+  },
+  {
+    "date": new Date("2024-09-17"),
+    "consumption": 112.5,
+    "production": 635.43,
+    "average": 16.35
+  },
+  {
+    "date": new Date("2024-09-16"),
+    "consumption": 112.6,
+    "production": 639.95,
+    "average": 13.34
+  },
+  {
+    "date": new Date("2024-09-15"),
+    "consumption": 98.9,
+    "production": 614.5,
+    "average": 16.28
+  },
+  {
+    "date": new Date("2024-09-14"),
+    "consumption": 101.7,
+    "production": 636.16,
+    "average": 7.71
+  },
+  {
+    "date": new Date("2024-09-13"),
+    "consumption": 109.6,
+    "production": 574.38,
+    "average": 12.95
+  },
+  {
+    "date": new Date("2024-09-12"),
+    "consumption": 108.9,
+    "production": 634.74,
+    "average": 19.26,
+    "consecutivenegatives": 2
+  },
+  {
+    "date": new Date("2024-09-11"),
+    "consumption": 110.8,
+    "production": 727.86,
+    "average": 0.82,
+    "consecutivenegatives": 3
+  },
+  {
+    "date": new Date("2024-09-10"),
+    "consumption": 111.2,
+    "production": 767.67,
+    "average": 0.11,
+    "consecutivenegatives": 7
+  },
+  {
+    "date": new Date("2024-09-09"),
+    "consumption": 109.8,
+    "production": 753.82,
+    "average": 0.01,
+    "consecutivenegatives": 4
+  },
+  {
+    "date": new Date("2024-09-08"),
+    "consumption": 95.7,
+    "production": 668.29,
+    "average": 0.93
+  },
+  {
+    "date": new Date("2024-09-07"),
+    "consumption": 97.8,
+    "production": 709.05,
+    "average": 5.59
+  },
+  {
+    "date": new Date("2024-09-06"),
+    "consumption": 109.4,
+    "production": 719.58,
+    "average": 1.06
+  },
+  {
+    "date": new Date("2024-09-05"),
+    "consumption": 111.2,
+    "production": 601.01,
+    "average": 12.44
+  },
+  {
+    "date": new Date("2024-09-04"),
+    "consumption": 111.4,
+    "production": 626.51,
+    "average": 3.83
+  },
+  {
+    "date": new Date("2024-09-03"),
+    "consumption": 110.9,
+    "production": 691.76,
+    "average": 8.48
+  },
+  {
+    "date": new Date("2024-09-02"),
+    "consumption": 110.9,
+    "production": 784.34,
+    "average": 1.53
+  },
+  {
+    "date": new Date("2024-09-01"),
+    "consumption": 96.8,
+    "production": 718.58,
+    "average": 1.86
   }
 ]

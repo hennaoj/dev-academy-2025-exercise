@@ -5,3 +5,13 @@ export type DailyInfo = {
     average?: number,
     consecutivenegatives?: number
 };
+
+let storedDailyInfo: Array<DailyInfo> = [];
+
+export function setStoredDailyInfo(data: Array<DailyInfo>) {
+    storedDailyInfo = data;
+}
+
+export function getStoredDailyInfo() {
+    return storedDailyInfo;
+}

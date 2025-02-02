@@ -2,20 +2,21 @@ import { DailyInfo } from "../data/DailyInfo";
 
 export function sortDataByValue(data: Array<DailyInfo>, sortBy: string) {
     const first = data[0];
+    let sorted = [...data];
     if (sortBy === "date") {
-        data.sort((a, b) => b.date.toString().localeCompare(a.date.toString()))
-        if (new Date(data[0].date).getDate() === new Date(first.date).getDate()) {
-            data = data.reverse();
+        sorted.sort((a, b) => b.date.toString().localeCompare(a.date.toString()))
+        if (new Date(sorted[0].date).getDate() === new Date(first.date).getDate()) {
+            sorted = sorted.reverse();
         }
     } else if (sortBy === "production" || sortBy === "consumption" || sortBy === "average" ||
         sortBy === "consecutivenegatives"
     ) {
-        data.sort((a,b) => localeCompareUndefined(a[sortBy], b[sortBy]))
-        if (data[0][sortBy] === first[sortBy]) {
-            data = data.reverse();
+        sorted.sort((a,b) => localeCompareUndefined(a[sortBy], b[sortBy]))
+        if (sorted[0][sortBy] === first[sortBy]) {
+            sorted = sorted.reverse();
         }
     }
-    return data;
+    return sorted;
 }
 
 
