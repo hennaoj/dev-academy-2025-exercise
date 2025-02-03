@@ -23,16 +23,17 @@ const DailyTable = () => {
       return (
         <div className="App">
           <header className="mainheader">Daily Electricity Information</header>
-          <p>Fetching electricity data...</p>
+          <p>Just a moment, fetching data...</p>
         </div>
       )
     }
-
+  
     return (
       <div className="App">
         <header className="mainheader">Daily Electricity Information</header>
         <div className="instruction">
-          <p>The table below provides information on electricity production, consumption and hourly spot prices in Finland over the years.</p>
+          <p>The table below provides information on electricity production,
+            consumption and hourly spot prices in Finland over the years.</p>
           <h4>Here are some instructions to guide you:</h4>
           <p>To sort the table: Click on any column header</p>
           <p>To enter a day view: Click on any date</p>
@@ -40,23 +41,47 @@ const DailyTable = () => {
         <table data-testid="maintable">
           <thead>
             <tr className="columnHeader">
-              <th className="columnHeader" onClick={() => sortTable("date")}>Date (YYYY-MM-DD)</th>
-              <th className="columnHeader" onClick={() => sortTable("consumption")}>Total Consumption (GWh)</th>
-              <th className="columnHeader" onClick={() => sortTable("production")}>Total Production (GWh)</th>
-              <th className="columnHeader" onClick={() => sortTable("average")}>Average Hourly Price (c/kWh)</th>
-              <th className="columnHeader" onClick={() => sortTable("consecutivenegatives")}>Maximum of Consecutive Negative Price Hours</th>
-            </tr>
-            </thead>
-            <tbody>
+              <th className="columnHeader" onClick={() => sortTable("date")}>
+                Date (YYYY-MM-DD)
+              </th>
+              <th className="columnHeader" onClick={() => sortTable("consumption")}>
+                Total Consumption (GWh)
+              </th>
+              <th className="columnHeader" onClick={() => sortTable("production")}>
+                Total Production (GWh)
+              </th>
+              <th className="columnHeader" onClick={() => sortTable("average")}>
+                Average Hourly Price (c/kWh)
+              </th>
+              <th className="columnHeader" onClick={() => sortTable("consecutivenegatives")}>
+                Maximum of Consecutive Negative Price Hours
+              </th>
+              </tr>
+          </thead>
+          <tbody>
             {Object.values(state).map((item: DailyInfo) => (
               <tr>
-                <th>
-                <Link to={`/${item.date.toString().slice(0,10)}`}>{item.date.toString().slice(0,10)}</Link>
-                  </th>
-                <th className="consumptioncell">{item.consumption}</th>
-                <th>{item.production}</th>
-                <th>{item.average}</th>
-                <th>{item.consecutivenegatives}</th>
+                <th className="dateCell">
+                  <Link to={`/${item.date.toString().slice(0,10)}`}>
+                    {item.date.toString().slice(0,10)}
+                  </Link>
+                </th>
+                <th className="consumptionCell">
+                  { item.consumption ? (
+                    <>{item.consumption.toFixed(1)}</>) : (<></>)}
+                </th>
+                <th className="productionCell">
+                  { item.production ? (
+                    <>{item.production.toFixed(1)}</>) : (<></>)}
+                </th>
+                <th className="averageCell">
+                  { item.average ? (
+                    <>{item.average.toFixed(2)}</>) : (<></>)}
+                </th>
+                <th className="consecutivesCell">
+                  { item.consecutivenegatives ? (
+                    <>{item.consecutivenegatives}</>) : (<></>)}
+                </th>
               </tr>
             ))}
           </tbody>

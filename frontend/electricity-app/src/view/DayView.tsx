@@ -1,9 +1,17 @@
 import { Link, useParams } from "react-router-dom";
 import { ElectricityEntry } from "../data/ElectricityEntry";
 import React, { useEffect, useState } from "react";
-import { CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { 
+    Bar,
+    CartesianGrid,
+    ComposedChart, Legend,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis 
+} from "recharts";
 import { findMinMaxPrices } from "../util/FrontCalculator";
-import { DailyInfo, getStoredDailyInfo } from "../data/DailyInfo";
+import { getStoredDailyInfo } from "../data/DailyInfo";
 
 const DayView = () => {
     const { date = "test" } = useParams<{ date: string }>();
@@ -30,8 +38,6 @@ const DayView = () => {
         dailyInfo = storedDailyInfo.find((item) => item.date.toString().slice(0,10) === date);
     }
 
-    entriesOfDate.sort((a, b) => a.id - b.id);
-
     const [ minAx, maxAx ] = findMinMaxPrices(entriesOfDate);
     return(
         <div>
@@ -41,33 +47,40 @@ const DayView = () => {
                 <ResponsiveContainer width="100%" height={400}>
                     <ComposedChart data={entriesOfDate} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>  
                         <XAxis dataKey="starttime" />
-                        <YAxis yAxisId={1} type="number" domain={[Number(minAx), Number(maxAx)]} tickCount={8}/>
+                        <YAxis
+                            yAxisId={1}
+                            type="number"
+                            domain={
+                                [Math.floor(Number(minAx)),
+                                Math.ceil(Number(maxAx))]
+                            }
+                            tickCount={8}
+                        />
                         <CartesianGrid strokeDasharray="3 3"/>
                         <Tooltip/>
                         <Legend/>
-                        <Line
+                        <Bar
                             yAxisId={1}
-                            strokeWidth={2}
-                            type="monotone"
                             dataKey="hourlyprice"
                             name="Price (c/kWh)"
+                            fill="#668db1"
                         />
                     </ComposedChart>
                     </ResponsiveContainer>
                 </div>
                 <div>
                     {dailyInfo.average ? (
-                        <p>Average electricity price: {dailyInfo.average} c/kWh</p>
+                        <p>Average electricity price: {dailyInfo.average.toFixed(2)} c/kWh</p>
                     ) : (
                         <p>Average price is not available</p>
                     )}
                     {dailyInfo.production ? (
-                        <p>Total production: {dailyInfo.production} MWh</p>
+                        <p>Total production: {dailyInfo.production.toFixed(1)} GWh</p>
                     ) : (
                         <p>Total production is not available</p>
                     )}
                     {dailyInfo.consumption ? (
-                        <p>Total consumption: {dailyInfo.consumption} MWh</p>
+                        <p>Total consumption: {dailyInfo.consumption.toFixed(1)} GWh</p>
                     ) : (
                         <p>Total consumption is not available</p>
                     )}

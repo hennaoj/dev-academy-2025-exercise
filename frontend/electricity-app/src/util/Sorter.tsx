@@ -1,5 +1,12 @@
 import { DailyInfo } from "../data/DailyInfo";
 
+/**
+ * Sorts DailyInfo data by a given value or reverts the list if data is already
+ * sorted by that value.
+ * @param data Array of DailyInfo
+ * @param sortBy name of the value to sort as a string
+ * @returns sorted Array of DailyInfo
+ */
 export function sortDataByValue(data: Array<DailyInfo>, sortBy: string) {
     const first = data[0];
     let sorted = [...data];

@@ -1,6 +1,5 @@
 import { Electricitydata } from "../entity/ElectricityEntry";
 
-
 type Pair = [Date, number];
 export type DailyInfo = {
     date: Date,
@@ -10,127 +9,74 @@ export type DailyInfo = {
     consecutivenegatives?: number
 };
 
+/**
+ * Takes in hourly electricity information and calculates the sums of electricity
+ * consumption and production, average electricity price of the day and maximum
+ * consecutive negative price hours of the day.
+ * @param data Array of Electricitydata
+ * @returns Array of DailyInfo
+*/
 export function calculateDailyInfromation(data: Electricitydata[]) {
-    const consumption = calcConsumptionPerDay(data);
-    const production = calcProductionPerDay(data);
-    const averagePrice = calcAveragePricePerDay(data);
+    data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    var dailyList: Array<DailyInfo> = [];
+    const dates: Array<Date> = [];
+    for (var value of data) {
+        var previousEntryDate = new Date().getTime();
+        var currentEntryDate = new Date(value.date);
+        if (dailyList.length > 0) {
+            previousEntryDate = new Date(dailyList[dailyList.length - 1].date).getTime();
+        }
+
+        if ((dailyList.length === 0 || previousEntryDate !== currentEntryDate.getTime())) {
+            dailyList.push({
+                date:currentEntryDate,
+                consumption:value.consumptionamount/1000000,
+                production:value.productionamount/1000,
+                average:Number(value.hourlyprice)
+            })
+            dates.push(currentEntryDate);
+        } else {
+            const updatedInfo = {
+                date: dailyList[dailyList.length - 1].date,
+                consumption: dailyList[dailyList.length - 1].consumption +
+                    value.consumptionamount/1000000,
+                production: dailyList[dailyList.length - 1].production + value.productionamount/1000,
+                average: (dailyList[dailyList.length - 1].average + Number(value.hourlyprice))/2,
+            }
+            dailyList[dailyList.length - 1] = updatedInfo;
+        };
+    };
+
     const consecutiveHours = calcConsecutiveNegativeHoursPerDay(data);
-
-    const list: Array<DailyInfo> = []
-    const dates: Array<Date> = []
-
-    for (var val of consumption) {
-        list.push({date:val[0], consumption:parseFloat(val[1].toFixed(1))})
-        dates.push(val[0])
-    }
-
-    for (var prod of production) {
-        const index = isInArray(dates, prod[0])
+    for (var item of consecutiveHours) {
+        const index = getDateIndex(dates, item[0])
         if (index !== -1) {
             const newEntry = {
-                date: list[index].date,
-                consumption: list[index].consumption,
-                production: parseFloat(prod[1].toFixed(2))
+                date: dailyList[index].date,
+                consumption: dailyList[index].consumption,
+                production: dailyList[index].production,
+                average: dailyList[index].average,
+                consecutivenegatives:item[1]
             }
-            list[index] = newEntry
-        } else {
-            list.push({date:prod[0], production:parseFloat(prod[1].toFixed(2))});
-            dates.push(prod[0]);
+            dailyList[index] = newEntry;
         };
     };
-
-    for (var ave of averagePrice) {
-        const index = isInArray(dates, ave[0])
-        if (index !== -1) {
-            const newEntry = {
-                date: list[index].date,
-                consumption: list[index].consumption,
-                production: list[index].production,
-                average: parseFloat(ave[1].toFixed(2))
-            }
-            list[index] = newEntry
-        } else {
-            list.push({date:ave[0], average:parseFloat(ave[1].toFixed(2))});
-            dates.push(ave[0]);
-        };
-    };
-
-    for (var cons of consecutiveHours) {
-        const index = isInArray(dates, cons[0])
-        if (index !== -1) {
-            const newEntry = {
-                date: list[index].date,
-                consumption: list[index].consumption,
-                production: list[index].production,
-                average: list[index].average,
-                consecutivenegatives:cons[1]
-            }
-            list[index] = newEntry
-        } else {
-            list.push({date:cons[0], consecutivenegatives:cons[1]});
-            dates.push(cons[0]);
-        };
-    };
-
-    list.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    return list;
+    return dailyList;
 }
 
-function isInArray(array: Array<Date>, value: Date) {
-    return array.findIndex(item => {return new Date(item).getTime() === new Date(value).getTime()});
+function getDateIndex(array: Array<Date>, value: Date) {
+    return array.findIndex(item => {
+        return new Date(item).getTime() === new Date(value).getTime();
+    });
 }
 
-function calcConsumptionPerDay(data: Electricitydata[]) {
-    var list: Array<Pair> = [];
-    for (var val of data) {
-        var previousEntryDate = new Date().getTime();
-        var currentEntryDate = new Date(val.date);
-        if (list.length > 0) {
-            previousEntryDate = new Date(list[list.length - 1][0]).getTime();
-        }
-        if ((list.length === 0 || previousEntryDate !== currentEntryDate.getTime()) && val.consumptionamount) {
-            list.push([currentEntryDate, val.consumptionamount/1000000])
-        } else if (list.length > 0 && val.consumptionamount) {
-            list[list.length - 1][1] = list[list.length - 1][1] + val.consumptionamount/1000000;
-        };
-    };
-    return list;
-};
-
-function calcProductionPerDay(data: Electricitydata[]) {
-    var list: Array<Pair> = [];
-    for (var val of data) {
-        var previousEntryDate = new Date().getTime();
-        var currentEntryDate = new Date(val.date);
-        if (list.length > 0) {
-            previousEntryDate = new Date(list[list.length - 1][0]).getTime();
-        }
-        if ((list.length === 0 || previousEntryDate !== currentEntryDate.getTime()) && val.productionamount) {
-            list.push([currentEntryDate, val.productionamount/1000])
-        } else if (list.length > 0 && val.productionamount) {
-            list[list.length - 1][1] = list[list.length - 1][1] + val.productionamount/1000
-        };
-    };
-    return list;
-}
-
-function calcAveragePricePerDay(data: Electricitydata[]) {
-    var list: Array<Pair> = [];
-    for (var val of data) {
-        var previousEntryDate = new Date().getTime();
-        var currentEntryDate = new Date(val.date);
-        if (list.length > 0) {
-            previousEntryDate = new Date(list[list.length - 1][0]).getTime();
-        }
-        if ((list.length === 0 || previousEntryDate !== currentEntryDate.getTime()) && val.hourlyprice) {
-            list.push([currentEntryDate, val.hourlyprice/1])
-        } else if (list.length > 0 && val.hourlyprice) {
-            list[list.length - 1][1] = (list[list.length - 1][1] + val.hourlyprice/1) / 2
-        };
-    };
-    return list;
-}
-
+/**
+ * Calculates the maximum amount of consecutive negative price hours per day.
+ * sorted by that value.
+ * @param data Array of Electricitydata
+ * @returns Array of [Date, number] pairs where number is the max amount of consecutive
+ * negative price hours for the respective date.
+ */
 function calcConsecutiveNegativeHoursPerDay(data: Electricitydata[]) {
     var checker: Array<Pair> = [];
     var prevNegative = false;
@@ -142,11 +88,11 @@ function calcConsecutiveNegativeHoursPerDay(data: Electricitydata[]) {
                 previousEntryDate = new Date(checker[checker.length - 1][0]).getTime();
             }
             if (checker.length === 0 || previousEntryDate !== currentEntryDate.getTime()) {
-                checker.push([currentEntryDate, 1])
+                checker.push([currentEntryDate, 1]);
             } else if (prevNegative && previousEntryDate === currentEntryDate.getTime()) {
-                checker[checker.length - 1][1] = checker[checker.length - 1][1] + 1
+                checker[checker.length - 1][1] = checker[checker.length - 1][1] + 1;
             } else {
-                checker.push([currentEntryDate, 1])
+                checker.push([currentEntryDate, 1]);
             }
             prevNegative = true;
         } else {

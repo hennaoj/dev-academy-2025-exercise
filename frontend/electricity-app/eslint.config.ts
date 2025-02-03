@@ -30,7 +30,8 @@ export default [
     "@typescript-eslint/no-explicit-any": 1,
     "no-case-declarations": 0,
     "react/prop-types": 0,
-    "indent": ["error", 2]
+    "indent": ["error", 2],
+    "max-len": ["error", { "code": 80 }]
   }
 }
 ];

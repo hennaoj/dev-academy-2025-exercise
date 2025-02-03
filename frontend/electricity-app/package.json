@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@table-library/react-table-library": "^4.1.7",
     "cypress": "^14.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

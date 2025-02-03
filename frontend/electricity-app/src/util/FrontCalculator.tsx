@@ -1,5 +1,10 @@
 import { ElectricityEntry } from "../data/ElectricityEntry";
 
+/**
+ * Returns minimum and maximum spot prices of the given entries.
+ * @param entries Array of ElectricityEntry
+ * @returns [min, max] of hourlyprice
+ */
 export function findMinMaxPrices(entries: Array<ElectricityEntry>) {
     let max = 0;
     let min = 0;

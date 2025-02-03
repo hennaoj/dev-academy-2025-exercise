@@ -31,7 +31,7 @@ td, th {
 }
 
 tr:nth-child(even) {
-  background-image: linear-gradient(to right, #e1f0fe , #f5faff);
+  background-image: linear-gradient(to right, #c2dcf5 , #f5faff);
 }
 
 tr:nth-child(odd) {
@@ -72,12 +72,3 @@ tr:nth-child(odd) {
   text-align: center;
   font-family: system-ui;
 }
-
-.filter {
-  padding: 10px;
-}
-
-/**
-#505a5b
-#8f91a2
-*/
