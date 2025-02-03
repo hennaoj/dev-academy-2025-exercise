@@ -12,9 +12,16 @@ This repository holds a web application that presents electricity production, co
 
 ## Implementation <a name="technologies"></a>
 ### Backend
-The backend is a Node.js application that uses TypeORM and Typescript. TypeORM is an ORM (Object Relational Mapper) that supports many database maangement systems - including PostgreSQL - and can also be used for non-relational databases.
+The backend is a Node.js application that uses TypeORM and Typescript. TypeORM is an ORM (Object Relational Mapper) that supports many database maangement systems and can also be used for non-relational databases.
 ### Frontend
-The frontend of the application is a React application, with two distinct routes/views. The main view at localhost:3000 presents a table of daily electricity information and the route localhost:3000/dates/:date gives a graph visualization of the date's electricity spot prices per hour as well as the information listed in the main table.
+The frontend of the application is a React application, with two distinct routes/views. The main view at localhost:3000 presents a table of total electricity production and consumption of each day as well as the average price and maximum consecutive negative hours (when applicable). The table can be sorted by each column.
+
+![image info](./images/dailytable.png)
+
+The route localhost:3000/dates/:date gives a graph visualization of a date's electricity spot prices per hour as well as the total production and consumption and averge price for the day.
+
+
+![image info](./images/dayview.png)
 
 ## Running the application
 Run the database using the instructions in Solita's pre assignment repository
@@ -56,4 +63,6 @@ E2E tests are located in the frontend side and can be run under the /frontend/el
 ```
 npm run cypress:open
 ```
-After running the command, choose "E2E Testing" and select a browser. Then select "electricty_app" from the menu and the tests should now run automatically. Make sure the backend and frontend are running while running the E2E tests.
+After running the command, choose "E2E Testing" and select a browser to run the tests on. Then select "electricty_app" from the menu and the tests should run automatically. Make sure the backend and frontend are up and working before running the E2E tests.
+
+The E2E tests include checks for rendering content, navigating between views and sorting the table based on different values.
