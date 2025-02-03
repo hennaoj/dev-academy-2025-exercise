@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import { 
     Bar,
     CartesianGrid,
-    ComposedChart, Legend,
+    ComposedChart,
+    Legend,
     ResponsiveContainer,
     Tooltip,
     XAxis,
@@ -17,6 +18,8 @@ const DayView = () => {
     const { date = "test" } = useParams<{ date: string }>();
     const [entriesOfDate, setEntries] = useState<ElectricityEntry[]>([]);
     const storedDailyInfo = getStoredDailyInfo();
+
+    entriesOfDate.sort((a, b) => a.starttime.localeCompare(b.starttime));
 
     useEffect(() => {
         fetchData(date).then((data) => 

@@ -56,7 +56,7 @@ const DailyTable = () => {
               <th className="columnHeader" onClick={() => sortTable("consecutivenegatives")}>
                 Maximum of Consecutive Negative Price Hours
               </th>
-              </tr>
+            </tr>
           </thead>
           <tbody>
             {Object.values(state).map((item: DailyInfo) => (
